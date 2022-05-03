@@ -14,9 +14,9 @@ class EmpresaController extends Controller
      */
     public function index()
     {
-        //
-        $empresas= Empresa::all();
 
+        $empresas= Empresa::all();
+        //$empresas= Empresa::orderBy("id")->get();//->paginate(2);
         return view("datosIndex")->with("empresas",$empresas);
         //return print($empresas);
     }
@@ -80,6 +80,8 @@ class EmpresaController extends Controller
     public function update(Request $request, $id)
     {
         //
+        /* dd($request);
+        exit(); se ve la peticion, donde puede chequear el request que recibiras*/
     }
 
     /**
@@ -91,5 +93,7 @@ class EmpresaController extends Controller
     public function destroy($id)
     {
         //
+        Empresa::destroy($id);
+        return redirect()->route("empresa.index");
     }
 }

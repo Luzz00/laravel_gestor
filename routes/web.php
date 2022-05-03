@@ -20,12 +20,16 @@ Route::get('/', function () {
     return view('index');
 });
 Route::get("/tecnico",[TecnicoController::class,"create"])->name("tecnico.create");
-
 Route::post("/tecnico",[TecnicoController::class, "store"])->name("tecnico.store");
-Route::post("/empresa",[EmpresaController::class, "store"]) ->name("empresa.store");
+
+
 Route::post("/incidencia",[IncidenciaController::class, "store"]) ->name("incidencia.store");
 
-Route::get("/empresas",[EmpresaController::class,"index"])->name("empresa.index");
+Route::get("/empresa",[EmpresaController::class,"index"])->name("empresa.index");
+Route::post("/empresa",[EmpresaController::class, "store"]) ->name("empresa.store");
+Route::delete("/empresa/{id}",[EmpresaController::class,"destroy"])->name("empresa.delete");
+Route::put("/empresa/{id}",[EmpresaController::class,"update"])->name("empresa.update");
+
 
 Route::get("/incidencias",[IncidenciaController::class,"index"]);
 
