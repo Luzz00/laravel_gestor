@@ -12,13 +12,30 @@ class TecnicoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
-        $tecnicos=Tecnico::all();
-        $totalTecnicos=sizeof($tecnicos);
+        //Aplicar filtro
+        $valorBuscado= $request->get("valorBuscado");
+        $filtro= $request->get("filtro");
+
+        if(($valorBuscado) && ($filtro) ){
+            //filtrar
+            $tecnicos=Tecnico::where("$filtro","LIKE","%$valorBuscado%")
+            ->get();
+
+        }else{
+            //devolver todo
+            $tecnicos=Tecnico::all();
+            $filtro="apellidos"; //que por defecto devuelva appellidos
+        }
+
+        //$tecnicos=Tecnico::all();
+        $totalTecnicos=sizeof($tecnicos); //Tecnico::all()->count();, devuelve el num de todos los registros devueltos
+
         return view("datos2")->with("tecnicos",$tecnicos)
-                            ->with("totalTecnicos",$totalTecnicos);
+                            ->with("totalTecnicos",$totalTecnicos)
+                            ->with("filtro_devuelto",$filtro);
+                           
     }
 
     /**
@@ -60,6 +77,8 @@ class TecnicoController extends Controller
     public function show($id)
     {
         //
+        /*$tecnico=Tecnico::find($id);
+        return redirect()->route("tecnico.index")->with("tecnico",$tecnico); */
     }
 
     /**

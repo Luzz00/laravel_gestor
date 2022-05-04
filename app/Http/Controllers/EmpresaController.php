@@ -82,6 +82,12 @@ class EmpresaController extends Controller
         //
         /* dd($request);
         exit(); se ve la peticion, donde puede chequear el request que recibiras*/
+        $empresa= Empresa::find($id);
+        $empresa->nombre=$request->get("nombre");
+        $empresa->CIF=$request->get("cif");
+        $empresa->save();
+
+        return redirect()->route("empresa.index");
     }
 
     /**

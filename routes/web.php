@@ -36,3 +36,4 @@ Route::get("/incidencias",[IncidenciaController::class,"index"]);
 Route::get("/incidenciasFiltro",[IncidenciaController::class,"indexFiltro"])->name("incidencias.indexFiltro");
 
 Route::get("/datos2",[TecnicoController::class,"index"])->name("tecnico.index");
+//Route::get("/tecnico/{id}",[TecnicoController::class,"show"])->name("tecnico.show");
