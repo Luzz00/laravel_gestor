@@ -37,3 +37,4 @@ Route::get("/incidenciasFiltro",[IncidenciaController::class,"indexFiltro"])->na
 
 Route::get("/datos2",[TecnicoController::class,"index"])->name("tecnico.index");
 //Route::get("/tecnico/{id}",[TecnicoController::class,"show"])->name("tecnico.show");
+Route::delete("/datos2/{id}",[TecnicoController::class,"destroy"])->name("tecnico.delete");

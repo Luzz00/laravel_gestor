@@ -113,5 +113,7 @@ class TecnicoController extends Controller
     public function destroy($id)
     {
         //
+        Tecnico::destroy($id);
+        return redirect()->route("tecnico.index");
     }
 }

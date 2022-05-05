@@ -139,7 +139,7 @@
         //le concateno el id a la ruta
         action += id;
         //cambio el atributo de action, por la url creada
-        $("#formDelete").attr("action",action);
+        $("#deleteForm").attr("action",action);
         //console.log(action);
 
         var modal = $(this);

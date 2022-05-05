@@ -85,14 +85,19 @@ class IncidenciaController extends Controller
                 ->join("empresas","incidencias.id_empresa","=","empresas.id")
                 ->select("incidencias.id","incidencias.id_empresa","empresas.nombre as nombre_empresa","incidencias.id_tecnico","tecnicos.nombre as nombre_tecnico",
                 "incidencias.fecha","incidencias.provincia","incidencias.ciudad")
+                ->orderBy("incidencias.id")
                 ->get();//->paginate(1); devuelve solo el numero de registros indicado
-        }
+            
+        }   
        
         
         
         //return view("incidenciasFiltro")->with("incidencias",$incidencias);
+
         return view("incidenciasFiltro",compact("incidencias","filtro","valorBuscado","valorBuscado_2"));
         //return print($incidencias);
+       /* dd($request);
+        exit(); */
     }
 
 
