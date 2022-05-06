@@ -46,10 +46,10 @@
                 <table class="table table-light table-striped table-bordered mt-4">
                     <thead style="background-color:#0080FF; color:white">
                         <tr id="tr_thead">
-                            <th>id_incidencia</th>
-                            <th>id_empresa</th>
+                            <th>id<br/>incidencia</th>
+                            <th>id<br/>empresa</th>
                             <th>nombre_empresa</th>
-                            <th>id_técnico</th>
+                            <th>id<br/>técnico</th>
                             <th>nombre_técnico</th>
                             <th>fecha</th>
                             <th>provincia</th>
