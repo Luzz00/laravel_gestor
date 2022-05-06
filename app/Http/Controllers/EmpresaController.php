@@ -17,7 +17,7 @@ class EmpresaController extends Controller
 
         $empresas= Empresa::all();
         //$empresas= Empresa::orderBy("id")->get();//->paginate(2);
-        return view("datosIndex")->with("empresas",$empresas);
+        return view("empresas")->with("empresas",$empresas);
         //return print($empresas);
     }
 
@@ -45,7 +45,7 @@ class EmpresaController extends Controller
         $empresa->CIF= $request->get("cif");
 
         $empresa->save();
-        return redirect()->route("tecnico.create");
+        return redirect()->route("controller.create");
     }
 
     /**
@@ -87,7 +87,8 @@ class EmpresaController extends Controller
         $empresa->CIF=$request->get("cif");
         $empresa->save();
 
-        return redirect()->route("empresa.index");
+        //return redirect()->route("empresa.index");
+        return back()->with("flash"," El registro se ha actualizado correctamente");
     }
 
     /**
@@ -100,6 +101,8 @@ class EmpresaController extends Controller
     {
         //
         Empresa::destroy($id);
-        return redirect()->route("empresa.index");
+        //return redirect()->route("empresa.index");
+
+        return back()->with("flash"," El registro se ha eliminado correctamente");
     }
 }

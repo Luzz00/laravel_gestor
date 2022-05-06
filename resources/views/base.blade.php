@@ -28,10 +28,10 @@
               <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href={{route("incidencias.indexFiltro") }}>incidencias</a>
+              <a class="nav-link" href="{{route("controller.create") }}">Crear</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{{route("tecnico.create") }}">crear</a>
+              <a class="nav-link" href={{route("incidencia.index") }}>Consultar incidencias</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{{route("empresa.index") }}">Consultar empresas</a>

@@ -1,13 +1,16 @@
 @extends("base")
+@section("fx_body","onload=changeSelectValue()")
 @section("contenido")
 <div class="row ">
     <div class="col-5" style="border-right: 1px solid grey;">
-              
+        <br/>     
+        <h4>Técnicos</h4><br/>
+        
         <form class="form-inline" action="{{route('tecnico.index') }}" method="get">
             @csrf
-            <input class="form-control " type="search" placeholder="Search" aria-label="Search" name="valorBuscado">
+            <input class="form-control " type="search" placeholder="Search" aria-label="Search" name="valorBuscado"  value={{$valorBuscado}}>
             <div class="form-group">
-                <select class="form-control" id="filtro" name="filtro">
+                <select class="form-control" id="filtro" name="filtro" onclick="changeInputType();">
                     <option value="">Filtro</option>
                     <option value="nombre">nombre</option>
                     <option value="apellidos">apellidos</option>
@@ -15,9 +18,10 @@
                 </select>
             </div>    
 
-            <button class="btn btn-outline-info my-2 my-sm-0 ml-2" type="submit" >Search</button>
+            <button class="btn btn-outline-info my-2 my-sm-0 ml-0" type="submit" >Search</button>
 
         </form>
+        <p id="filtro_devuelto" hidden>{{$filtro_devuelto}}</p>
         <br/>
         <table class="table table-hover">
             <thead>
@@ -49,7 +53,11 @@
     </div>
     <!-- Tabla de todo los datos-->
     <div class="col-7">
-        <h3 class="text-center" id="texto_alternativo"> Datos técnico </h3>
+        <br/>
+        <div class="justify-content-center">
+            <a href="{{route('controller.create') }}" class="btn btn-success" >+ Agregar</a>
+        </div><br/><br/>
+        <h4 id="texto_alternativo"> Datos </h4>
         <table class="table hidden" id="table_datos">
             <thead>
                 <tr class="table-primary">
@@ -135,7 +143,7 @@
             </button>
             </div>
             <div class="modal-body">
-                <form action="" method="post" id="editForm">
+                <form action="{{route('tecnico.update') }}" method="post" id="editForm">
                     @csrf
                     @method("PUT")
                     <div class="form-group ">
@@ -200,6 +208,31 @@
         ciudad.innerHTML=tds[3].innerHTML;
         btns.children[1].setAttribute("data-id",id.innerHTML);//btn delete
     }
+
+    function changeInputType(){
+        //quitar el valorbuscado del input
+        let input= document.getElementsByName("valorBuscado")[0];
+        input.setAttribute("value","");
+    }
+    //colocar el selected devuelto
+    function changeSelectValue(){
+        let filtro_devuelto= document.getElementById("filtro_devuelto").innerHTML;
+        let selectOptions= document.getElementById("filtro").children;
+        let valorBuscado= document.getElementsByName("valorBuscado")[0];//sólo si hay valor buscado se coloca el select devuelto
+        
+        //buscar el filtro y seleccinarlo, sólo si hay un valor buscado
+        if(valorBuscado.value){
+            valorBuscado.style.cssText="color:grey";
+
+            for(let i=0; i<selectOptions.length; i++){
+                if(selectOptions[i].value== filtro_devuelto){
+                    selectOptions[i].setAttribute("selected","selected");
+                }
+            }
+        }
+        
+    }
+
 </script>
 @endsection
 

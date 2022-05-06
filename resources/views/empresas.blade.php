@@ -3,8 +3,20 @@
 @section("contenido")
         <div class="row">
             <div class="col-12">
-                <h3>Datos</h3><br/>
-                <h4>Empresas</h4>
+                <br/>
+                <h4>Empresas</h4><br/>
+                <a href="{{route('controller.create') }}" class="btn btn-success" >+ Agregar</a><br/><br/>
+                <!--mensaje de alerta -->
+                @if(session("flash"))
+                <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                    <strong>Aviso!</strong> {{session("flash")}}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                @endif
+                
+                
                 <table class="table table-light table-striped mt-5">
                     <thead >
                     <tr>

@@ -51,7 +51,7 @@
                         <h3 class="">Crear Técnico</h3>
                         <br/>
 
-                        <form action="" method="post">
+                        <form action="{{route('tecnico.store') }}" method="post">
                             @csrf
                             <div class="form-row">
                                 <div class="form-group col-md-6">
@@ -115,99 +115,5 @@
          </div>
 
     </div>
-    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-        <!--
-        <div class="row">
-            <h3 class="col-12">Crear Empresa</h3>
-            <br/>
-            <div class="col">
-                <form action="{route('empresa.store') }}" method="post">
-                    csrf
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="nombre">Nombre</label>
-                            <input type="text" class="form-control" id="nombre" name="nombre">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="cif">CIF</label>
-                            <input type="text" class="form-control" id="cif" name="cif">
-                        </div>
-                    </div>
 
-
-                
-                    <button type="submit" class="btn btn-primary" >Submit</button>
-
-                </form>
-            </div>
-        </div>
-        <br/>
-        <div class="row">
-            <h3 class="col-12">Crear técnico</h3>
-            <br/>
-            <div class="col">
-                <form action="" method="post">
-                    csrf
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="nombre">Nombre</label>
-                            <input type="text" class="form-control" id="nombre" name="nombre">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="apellidos">Apellidos</label>
-                            <input type="text" class="form-control" id="apellidos" name="apellidos">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="ciudad">Ciudad</label>
-                        <input type="text" class="form-control" id="ciudad" name="ciudad">
-                    </div>
-
-                
-                    <button type="submit" class="btn btn-primary" >Submit</button>
-
-                </form>
-            </div>
-        </div>
-        <br/>
-        <div class="row">
-            <h3 class="col-12">Crear Incidencia</h3>
-            <br/>
-            <div class="col">
-                <form action="{route('incidencia.store') }}" method="post">
-                    csrf
-                
-                    <div class="form-group ">
-                        <label for="id_empresa">id_empresa</label>
-                        <input type="number" class="form-control" id="id_empresa" name="id_empresa">
-                    </div>
-
-                    <div class="form-group">
-                         <label for="id_tecnico">id_tecnico</label>
-                        <input type="number" class="form-control" id="id_tecnico" name="id_tecnico">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="fecha">Fecha</label>
-                        <input type="date" class="form-control" id="fecha" name="fecha">
-                    </div>
-                    <div class="form-group">
-                        <label for="provincia">Provincia</label>
-                        <input type="text" class="form-control" id="provincia" name="provincia">
-                    </div>
-                    <div class="form-group">
-                        <label for="ciudad">Ciudad</label>
-                        <input type="text" class="form-control" id="ciudad" name="ciudad">
-                    </div>
-
-                
-                    <button type="submit" class="btn btn-primary" >Submit</button>
-
-                </form>
-            </div>
-        </div> -->
 @endsection
-
-  </body>
-</html>

@@ -14,28 +14,14 @@ class IncidenciaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        
-        $consulta=Incidencia::join("tecnicos","incidencias.id_tecnico","=","tecnicos.id")
-            ->join("empresas","incidencias.id_empresa","=","empresas.id")
-            ->select("incidencias.id","incidencias.id_empresa","empresas.nombre as nombre_empresa","incidencias.id_tecnico","tecnicos.nombre as nombre_tecnico",
-            "incidencias.fecha","incidencias.provincia","incidencias.ciudad")
-            ->get();//->paginate(1); devuelve solo el numero de registros indicado
-        
-        //return print($consulta);
-        return view("incidenciasIndex")->with("incidencias",$consulta);
 
-        //return view("incidenciasIndex");
-    }
-
-    public function indexFiltro(Request $request){
+    public function index(Request $request){
 
         
         $filtro= $request->get("filtro");
 
         $valorBuscado=$request->get("valorBuscado"); //trim($reqwuest...) para eliminar espacios en blanco
-        $valorBuscado_2=$request->get("valorBuscado2");
+        $valorBuscado_2=$request->get("valorBuscado2");//para rango de fechas
         //averiguar si se trata de un rango de fecha
 
         if($valorBuscado){
@@ -94,7 +80,7 @@ class IncidenciaController extends Controller
         
         //return view("incidenciasFiltro")->with("incidencias",$incidencias);
 
-        return view("incidenciasFiltro",compact("incidencias","filtro","valorBuscado","valorBuscado_2"));
+        return view("incidencias",compact("incidencias","filtro","valorBuscado","valorBuscado_2"));
         //return print($incidencias);
        /* dd($request);
         exit(); */
@@ -129,7 +115,7 @@ class IncidenciaController extends Controller
 
         //return print($incidencia);
         $incidencia->save();
-        return redirect()->route("tecnico.create");
+        return redirect()->route("controller.create");
     }
 
     /**
@@ -157,7 +143,7 @@ class IncidenciaController extends Controller
     
         $incidencias=Incidencia::where("provincia","like","%$valorBuscado%")->get();
         //return print($incidencias);
-        return  view("incidenciasFiltro")->with("incidencias",$incidencias);
+        return  view("incidencias")->with("incidencias",$incidencias);
     }
 
     /**

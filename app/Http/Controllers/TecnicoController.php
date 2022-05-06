@@ -32,9 +32,10 @@ class TecnicoController extends Controller
         //$tecnicos=Tecnico::all();
         $totalTecnicos=sizeof($tecnicos); //Tecnico::all()->count();, devuelve el num de todos los registros devueltos
 
-        return view("datos2")->with("tecnicos",$tecnicos)
+        return view("tecnicos")->with("tecnicos",$tecnicos)
                             ->with("totalTecnicos",$totalTecnicos)
-                            ->with("filtro_devuelto",$filtro);
+                            ->with("filtro_devuelto",$filtro)
+                            ->with("valorBuscado",$valorBuscado);
                            
     }
 
@@ -46,7 +47,7 @@ class TecnicoController extends Controller
     public function create()
     {
         //
-        return view("tecnicoStore");
+        //return view("crearRegistros");
     }
 
     /**
@@ -65,7 +66,7 @@ class TecnicoController extends Controller
 
         $tecnico->save();
 
-        return redirect()->route("tecnico.create");
+        return redirect()->route("controller.create");
     }
 
     /**
@@ -99,9 +100,19 @@ class TecnicoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)//$id
     {
         //
+        /*dd($request);
+        exit(); */
+        $id= $request->get("id");
+        $tecnico= Tecnico::find($id);
+        $tecnico->nombre= $request->get("nombre");
+        $tecnico->apellidos= $request->get("apellidos");
+        $tecnico->ciudad= $request->get("ciudad");
+
+        $tecnico->save();
+        return redirect()->route("tecnico.index");
     }
 
     /**

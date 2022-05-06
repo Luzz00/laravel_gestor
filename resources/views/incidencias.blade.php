@@ -5,15 +5,16 @@
         <div class="row">
             <div class="col-12">
                 <br/>
-                <h4>Búsqueda</h4> <br/>
+                <h4>Incidencias</h4><br/>
+                <a href="{{route('controller.create') }}" class="btn btn-success" >+ Agregar</a><br/><br/><br/>
                 <!--Buscar por:  nombre empresa, nombre técnico, fecha, provincia, ciudad-->
                 <nav class="navbar navbar-light bg-light">
-                    <form class="form-inline" action="{{route('incidencias.indexFiltro')}}" method="get">
+                    <form class="form-inline" action="{{route('incidencia.index')}}" method="get">
                     @csrf
                         <div class="form-group">
                             <label for="exampleFormControlSelect1">Buscar por  </label>
                             <select class="form-control ml-2" id="filtro" name="filtro" onclick="changeInputType();">
-                                <option value="">----</option>
+                                <option value="">filtro</option>
                                 <option value="empresas.nombre" >nombre Empresa</option>
                                 <option value="tecnicos.nombre">nombre Técnico </option>
                                 <option value="incidencias.fecha">fecha</option>
@@ -53,6 +54,7 @@
                             <th>fecha</th>
                             <th>provincia</th>
                             <th>ciudad</th>
+                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -67,6 +69,13 @@
                                     <td>{{$incidencia->fecha}}</td>
                                     <td>{{$incidencia->provincia}}</td>
                                     <td>{{$incidencia->ciudad}}</td>
+                                    <td>
+                                        <a href="" class="btn btn-info" data-toggle="modal" 
+                                        data-target="#editModal">Editar</a>
+                                        <button type="submit" class="btn btn-danger" data-toggle="modal" 
+                                        data-target="#deleteModal" data-id="">Borrar</button>
+        
+                                    </td>
                             </tr>
                         @endforeach
                             
@@ -79,7 +88,88 @@
                 
             </div>
         </div>
+    
+    
+    <!--modal delete-->
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>¿Estas seguro de eliminar el registro? </p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+              
+              <!-- formulario para eliminar-->
+              <form action="{{route("empresa.delete", 0)}}" data-action="{{route("empresa.delete", 0)}}" method="post" id="deleteForm">
+                @csrf
+                @method("DELETE")
+                <button type="submit" class="btn btn-danger">Eliminar</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    <!-- fin: modal delete-->
+
+    <!--modal edit -->
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Editar Empresa</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+            <form action="" method="post" id="editForm">
+                @csrf
+                @method("PUT")
+
+                <div class="form-group ">
+                    <label for="id">Id</label>
+                    <input type="text" class="form-control" id="id" name="id" value="" readonly>
+                </div>
+                <div class="form-group ">
+                    <label for="id_empresa">id_empresa</label>
+                    <input type="number" class="form-control" id="id_empresa" name="id_empresa">
+                </div>
+
+                <div class="form-group">
+                     <label for="id_tecnico">id_tecnico</label>
+                    <input type="number" class="form-control" id="id_tecnico" name="id_tecnico">
+                </div>
+
+                <div class="form-group">
+                    <label for="fecha">Fecha</label>
+                    <input type="date" class="form-control" id="fecha" name="fecha">
+                </div>
+                <div class="form-group">
+                    <label for="provincia">Provincia</label>
+                    <input type="text" class="form-control" id="provincia" name="provincia">
+                </div>
+                <div class="form-group">
+                    <label for="ciudad">Ciudad</label>
+                    <input type="text" class="form-control" id="ciudad" name="ciudad">
+                </div>
+
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-primary">Actualizar</button>
+
+            </form>
+            </div>
+
+        </div>
+        </div>
     </div>
+
 
     <script>
         //colocar input de fecha cuando el filtro seleccionadp sea una fecha
@@ -88,7 +178,7 @@
             let input= document.getElementById("valorBuscado");
             let input_2= document.getElementById("valorBuscado2");
 
-            input.setAttribute("value","");
+            input.setAttribute("value","");//cada vez que se selecione el select que se borre el valor del input
             input_2.setAttribute("value","");
             input_2.setAttribute("hidden","");
 
@@ -116,7 +206,7 @@
 
         }
 
-        //colocar opcion de selected devuelto
+        //colocar opcion de selected devuelto. En el evento onload
         function changeSelectValue(){
             let filtro_devuelto= document.getElementById("filtro_devuelto").innerHTML;
             let selectLista= document.getElementById("filtro").children;
@@ -134,7 +224,8 @@
                     //document.getElementById("texto").innerHTML=selectLista[i].value;
                 }
             } 
-        
+
+            //cambiar el valor del filtro para que corresponda al nombre de las columnas
             switch(filtro_devuelto){
                 case "empresas.nombre": filtro_devuelto="nombre_empresa";
                     break;
@@ -154,7 +245,7 @@
                 default: filtro_devuelto="";
             }
 
-            //cambiar el valor del filtro para que corresponda al nombre de las columnas
+            //resaltar la columna de resultados, en la que se aplica el filtro
             for(let i=0; i<theadLista.length; i++){
                 if(theadLista[i].innerHTML== filtro_devuelto){
                     //theadLista[i].style.backgroundColor="green";
